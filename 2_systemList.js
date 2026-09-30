@@ -3,6 +3,7 @@ const cors = require("cors");
 const app = express();
 const mysql = require("mysql2/promise");
 const bcrypt = require("bcrypt");
+require('dotenv').config();
 
 app.use(cors());
 app.use(express.json());
@@ -17,7 +18,7 @@ app.post('/api/expense',async (req,res)=> {//注册逻辑
         const connection = await mysql.createConnection({
             host:'localhost',
             user:'app_user',
-            password:'1126!',
+            password:process.env.DB_PASSWORD,
             database:"task_manager"
         });
 
@@ -54,7 +55,7 @@ app.post('/api/expense/use',async (req,res)=> {//登录逻辑
         const connection = await mysql.createConnection({
             host:'localhost',
             user:'app_user',
-            password:'1126!',
+            password:process.env.DB_PASSWORD,
             database:'task_manager'
         })
 
@@ -90,7 +91,7 @@ app.post('/api/expense/create/Click', async (req,res)=>{ //新建
         const connection = await mysql.createConnection({//异步和同步
         host:'localhost',
         user:'app_user',
-        password:'1126!',
+        password:process.env.DB_PASSWORD,
         database:'task_manager'
     })
 
@@ -121,7 +122,7 @@ app.post('/api/expense/create/revise', async (req,res)=>{
         const connection = await mysql.createConnection({//异步和同步
         host:'localhost',
         user:'app_user',
-        password:'1126!',
+        password:process.env.DB_PASSWORD,
         database:'task_manager'
         })
 
@@ -152,7 +153,7 @@ app.post('/api/expense/create/del', async (req,res)=>{
         const connection = await mysql.createConnection({//异步和同步
         host:'localhost',
         user:'app_user',
-        password:'1126!',
+        password:process.env.DB_PASSWORD,
         database:'task_manager'
         })
 
@@ -183,7 +184,7 @@ app.post('/api/expense/create/done', async (req,res)=>{
         const connection = await mysql.createConnection({//异步和同步
         host:'localhost',
         user:'app_user',
-        password:'1126!',
+        password:process.env.DB_PASSWORD,
         database:'task_manager'
         })
 
