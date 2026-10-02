@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-
+import {API_URL} from './api.ts'
 
 interface setProps {
     Username:string;
@@ -61,7 +61,7 @@ function App() {
   const [donebutton,setDonebutton] = useState<true | false>(false);
   const [delbutton,setDelbutton] = useState<true | false>(false);
   const userRegister = ()=>{//注册
-    fetch("/api/expense",{
+    fetch(`${API_URL}/api/expense`,{
       method:"post",
       headers:{'Content-Type': 'application/json'},
       body:JSON.stringify({username:acUsername,password:acPassword})
@@ -79,7 +79,7 @@ function App() {
   }
 
   const userlogin = ()=> {//登录函数
-    fetch("/api/expense/use",{
+    fetch(`${API_URL}/api/expense/use`,{
       method:'post',
       headers:{'Content-Type' : 'application/json'},
       body:JSON.stringify({username:acUsername,password:acPassword})
@@ -104,7 +104,7 @@ function App() {
     const status = "pending";
     setCreatestatus(status);
     console.log(createstatus);
-    await fetch('/api/expense/create/Click',{
+    await fetch(`${API_URL}/api/expense/create/Click`,{
       method:'post',
       headers:{'content-Type' : 'application/json'},
       body:JSON.stringify({title:createtitle,content:createcontent,userId,status})
@@ -121,7 +121,7 @@ function App() {
   }
 
   const createRevise = async () => { //修改
-    await fetch('/api/expense/create/revise',{
+    await fetch(`${API_URL}/api/expense/create/revise`,{
       method:'post',
       headers:{'content-Type' : 'application/json'},
       body:JSON.stringify({subtitle:createcontent,obid,userId})
@@ -136,7 +136,7 @@ function App() {
   }
 
   const createdel = async () => { //删除函数
-    await fetch('/api/expense/create/del',{
+    await fetch(`${API_URL}/api/expense/create/del`,{
       method:'post',
       headers:{'content-Type' : 'application/json'},
       body:JSON.stringify({obid,userId})
@@ -153,7 +153,7 @@ function App() {
 
 const createdone = async () => {
   const status = "done";
-  await fetch('/api/expense/create/done', {
+  await fetch(`${API_URL}/api/expense/create/done`, {
     method: 'post',
     headers: { 'content-Type': 'application/json' },
     body: JSON.stringify({ obid,status,userId})
