@@ -16,10 +16,11 @@ app.use((req,res,next)=>{
 app.post('/api/expense',async (req,res)=> {//注册逻辑
     try{
         const connection = await mysql.createConnection({
-            host:'localhost',
-            user:'app_user',
+            host:process.env.DB_HOST,
+            port:process.env.DB_PORT,
+            user:process.env.DB_USER,
             password:process.env.DB_PASSWORD,
-            database:"task_manager"
+            database:process.env.DB_NAME
         });
 
         const bcryptpassword = await bcrypt.hash(req.body.password,10); 
@@ -53,10 +54,11 @@ app.post('/api/expense/use',async (req,res)=> {//登录逻辑
     try{
 
         const connection = await mysql.createConnection({
-            host:'localhost',
-            user:'app_user',
+            host:process.env.DB_HOST,
+            port:process.env.DB_PORT,
+            user:process.env.DB_USER,
             password:process.env.DB_PASSWORD,
-            database:'task_manager'
+            database:process.env.DB_NAME
         })
 
         const [serach] = await connection.execute("SELECT * FROM users WHERE username = ?",[req.body.username]);
@@ -89,10 +91,11 @@ app.post('/api/expense/create/Click', async (req,res)=>{ //新建
         const hand = req.body;
 
         const connection = await mysql.createConnection({//异步和同步
-        host:'localhost',
-        user:'app_user',
-        password:process.env.DB_PASSWORD,
-        database:'task_manager'
+            host:process.env.DB_HOST,
+            port:process.env.DB_PORT,
+            user:process.env.DB_USER,
+            password:process.env.DB_PASSWORD,
+            database:process.env.DB_NAME
     })
 
         const [write] = await connection.execute("INSERT INTO tasks (user_id, title, subtitle, status) VALUES (?, ?, ?, ?)",[hand.userId,hand.title,hand.content,hand.status]);
@@ -120,10 +123,11 @@ app.post('/api/expense/create/revise', async (req,res)=>{
         const hand = req.body;
 
         const connection = await mysql.createConnection({//异步和同步
-        host:'localhost',
-        user:'app_user',
-        password:process.env.DB_PASSWORD,
-        database:'task_manager'
+            host:process.env.DB_HOST,
+            port:process.env.DB_PORT,
+            user:process.env.DB_USER,
+            password:process.env.DB_PASSWORD,
+            database:process.env.DB_NAME
         })
 
         const [revise] =await connection.execute("UPDATE tasks SET subtitle = ? WHERE id = ?",[hand.subtitle,hand.obid]);
@@ -151,10 +155,11 @@ app.post('/api/expense/create/del', async (req,res)=>{
         const hand = req.body;
 
         const connection = await mysql.createConnection({//异步和同步
-        host:'localhost',
-        user:'app_user',
-        password:process.env.DB_PASSWORD,
-        database:'task_manager'
+            host:process.env.DB_HOST,
+            port:process.env.DB_PORT,
+            user:process.env.DB_USER,
+            password:process.env.DB_PASSWORD,
+            database:process.env.DB_NAME
         })
 
         const [del] = await connection.execute("UPDATE tasks SET deleted_at = NOW() WHERE id = ?",[hand.obid]);
@@ -182,10 +187,11 @@ app.post('/api/expense/create/done', async (req,res)=>{
         const hand = req.body;
 
         const connection = await mysql.createConnection({//异步和同步
-        host:'localhost',
-        user:'app_user',
-        password:process.env.DB_PASSWORD,
-        database:'task_manager'
+            host:process.env.DB_HOST,
+            port:process.env.DB_PORT,
+            user:process.env.DB_USER,
+            password:process.env.DB_PASSWORD,
+            database:process.env.DB_NAME
         })
 
         const [done] =await connection.execute("UPDATE tasks SET status = ? WHERE id = ?",[hand.status,hand.obid]);
