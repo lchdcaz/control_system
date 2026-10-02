@@ -9,7 +9,7 @@ export default defineConfig({
   ],
   server:{
     proxy:{
-      '/api' : 'http://127.0.0.1:3000'
+      '/api' : 'https://controlsystem-production-cb5f.up.railway.app'
     }
   }
 })
