@@ -213,6 +213,8 @@ app.post('/api/expense/create/done', async (req,res)=>{
     }
 })
 
-app.listen(3000,()=>{
-    console.log("服务器运行,端口3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT,()=>{
+    console.log(`服务器运行端口${PORT}`);
 })
