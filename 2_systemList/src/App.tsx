@@ -237,10 +237,10 @@ const createdone = async () => {
           ):null
         }
 
-      <div className = "flex justify-end items-start text-2xl pt-10 mb-20 gap-3 w-[100vw]">
+      <div className = "flex justify-end items-start text-2xl pt-10 mb-20 gap-10 w-[100vw]">
         <Contents onuse = {buttonuse}/>
       {(buttoncontrol == "close") ? (
-        <button onClick = {() =>setCreate(true)} className = "bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70">创建</button>
+        <button onClick = {() =>setCreate(true)} className = "bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70 w-[10vw]">创建</button>
       ) : null}
       </div>
 
@@ -362,7 +362,7 @@ function Acince ({setU}:connectuserin) {//关闭逻辑
     <div>
       {(setU.control == "open")?(
         <>
-        <button onClick = {() =>  setU.userin("login")} className = "text-xl hover:bg-gray-100/50 pr-1 hover:rounded-xl active:text-3xl font-medium text-white">login</button>
+        <button onClick = {() =>  setU.userin("login")} className = "text-xl hover:bg-gray-100/50 pr-1 hover:rounded-xl active:text-3xl font-medium text-white ">login</button>
         <button onClick = {()=> setU.userin("register")} className = "text-xl hover:bg-gray-100/50 hover:rounded-xl active:text-3xl text-white">register</button>      
         </>
       ):(
@@ -389,7 +389,7 @@ function Contents ({onuse}:onClick) {
           onuse.onDone(false);
           onuse.onDel(false);
           onuse.onchangestatus("pending");
-        }}><button className = {`bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70 ${onuse.onstatus == "pending" ? "pend status" : "pend"}`}>Pending</button>
+        }}><button className = {`bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70 ${onuse.onstatus == "pending" ? "pend status" : "pend"} w-[10vw]`}>Pending</button>
       </div>
        
 
@@ -398,7 +398,7 @@ function Contents ({onuse}:onClick) {
           onuse.onDone(true);
           onuse.onDel(false);
           onuse.onchangestatus("done");
-        }}><button className = {`bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70 ${onuse.onstatus == "done" ? "done status" : "done"}`}>done</button> 
+        }}><button className = {`bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70 ${onuse.onstatus == "done" ? "done status" : "done"} w-[10vw]`}>done</button> 
           </div>
 
 
@@ -407,7 +407,7 @@ function Contents ({onuse}:onClick) {
           onuse.onDone(true);
           onuse.onDel(false);
           onuse.onchangestatus("check");
-        }}><button className = {`bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70 ${onuse.onstatus == "check" ? "check status" : "check"}`}>Record</button> 
+        }}><button className = {`bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70 ${onuse.onstatus == "check" ? "check status" : "check"} w-[10vw]`}>Record</button> 
           </div>
     </>
 

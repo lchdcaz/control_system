@@ -57,7 +57,7 @@
 
 .card:hover{
     transform:transformY(100px);
-
+    box-shadow:-15px 25px 20px rgb(88, 88, 193);
 }
 
 flowcard{
