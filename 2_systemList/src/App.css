@@ -1,0 +1,68 @@
+.pend{
+    transition-property:
+    transform,
+    background-color,
+    color
+    ;
+    transition-duration:1s;
+    transition-timing-function:ease;
+
+}
+
+.pend.status{
+    transform:translateX(-1000px);
+    background-color:rgb(230, 222, 230);
+    color:black;
+}
+
+.done{
+    transition-property:
+    transform,
+    background-color,
+    color
+    ;
+    transition-duration:1s;
+    transition-timing-function:ease;
+
+}
+
+.done.status{
+    transform:translateX(-1000px);
+    background-color:rgb(230, 222, 230);
+    color:black;
+}
+
+.check{
+    transition-property:
+    transform,
+    background-color,
+    font-color
+    ;
+    transition-duration:1s;
+    transition-timing-function:ease;
+
+}
+
+.check.status{
+    transform:translateX(-1000px);
+    background-color:rgb(230, 222, 230);
+    color:black;
+}
+
+.card{
+    transition-property:all;
+    transition-duration:0.4s;
+    transition-timing-function:ease;
+}
+
+.card:hover{
+    transform:transformY(100px);
+
+}
+
+flowcard{
+    transition-property:all;
+    transition-duration:0.4s;
+    transition-timing-function:ease;
+
+}

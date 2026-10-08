@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import {API_URL} from './api.ts'
+import  OrbitTitle  from "./OrbitTitle";
 
 interface setProps {
     Username:string;
@@ -10,6 +11,7 @@ interface setProps {
     onClick : React.Dispatch<React.SetStateAction<boolean>>;
     onDone : React.Dispatch<React.SetStateAction<boolean>>;
     onDel : React.Dispatch<React.SetStateAction<boolean>>;
+    onstatus:React.Dispatch<React.SetStateAction<"pending" | "done" | "check" | null>>;
   };
 
 interface connectuserin {
@@ -31,6 +33,8 @@ interface fcok {
   onClick : React.Dispatch<React.SetStateAction<boolean>>;
   onDone : React.Dispatch<React.SetStateAction<boolean>>;
   onDel : React.Dispatch<React.SetStateAction<boolean>>;
+  onchangestatus:React.Dispatch<React.SetStateAction<"pending" | "done" | "check" | null>>;
+  onstatus:"pending" | "done" | "check" | null;
 }
 
 interface onClick {
@@ -60,6 +64,7 @@ function App() {
   const [obid,setObid] = useState(0);
   const [donebutton,setDonebutton] = useState<true | false>(false);
   const [delbutton,setDelbutton] = useState<true | false>(false);
+  const [changestatus,setChangestatus] = useState<"pending" | "done" | "check" | null>(null);
   const userRegister = ()=>{//注册
     fetch(`${API_URL}/api/expense`,{
       method:"post",
@@ -173,21 +178,24 @@ const createdone = async () => {
     userin:setUserIn,
     onClick : setFcok,
     onDone : setDonebutton,
-    onDel : setDelbutton
+    onDel : setDelbutton,
+    onstatus:setChangestatus
   };
 
   const buttonuse :fcok = {
     onClick : setFcok,
     onDone : setDonebutton,
-    onDel : setDelbutton
+    onDel : setDelbutton,
+    onchangestatus:setChangestatus,
+    onstatus:changestatus
   }
 
 
   return(
-    <div className = "flex flex-col bg-gray-500/50 min-h-screen">
-      <div className = "flex p-3 bg-gray-500/50 mx-auto min-w-screen items-center shadow-lg shadow-gray-600 rounded-4xl mt-1 ">
+    <div className = "flex flex-col bg-gray-950 min-h-screen">
+      <div className = "flex p-5 bg-gray-500/50 mx-auto min-w-screen items-center shadow-lg shadow-gray-600 rounded-4xl mt-2 ">
       <div className = "flex-1"></div>
-        <h1 className = "flex-2 text-center text-5xl font-semibold tracking-wide">Object manager system</h1>
+      <OrbitTitle text="Object manager system"/>
       <div className = "flex-1 flex justify-end">
         <Acince setU = {buttonac}/>
       </div>
@@ -197,31 +205,31 @@ const createdone = async () => {
         {
           (userIn && userIn == "login")? (
             <div className = "fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-              <div className = "relative bg-white rounded-2xl p-6 flex flex-col h-[30vh] w-[40vw] gap-4 shadow-2xl shadow-blue-800">
-                <button className = "absolute top-2 right-2" onClick = {() => setUserIn(null)}>关闭</button>
-                <h1 className = "self-center text-xl">欢迎使用任务管理系统</h1>
-                <label>账号</label>
-                <input onChange = {(e) => setacUsername(e.target.value)} className = "border rounded-2xl"/>
-                <label>密码</label>
-                <input onChange = {(e)=> setPassword(e.target.value)} className = "border rounded-2xl"/>
+              <div className = "relative bg-white rounded-2xl p-6 flex flex-col h-[50vh] w-[40vw] gap-4 shadow-2xl shadow-blue-800">
+                <button className = "absolute top-2 right-2" onClick = {() => setUserIn(null)}>Exit</button>
+                <h1 className = "self-center text-2xl">欢迎使用任务管理系统</h1>
+                <label>账号:</label>
+                <input onChange = {(e) => setacUsername(e.target.value)} className = "border rounded-2xl p-3 "/>
+                <label>密码:</label>
+                <input onChange = {(e)=> setPassword(e.target.value)} className = "border rounded-2xl p-3"/>
                 <div className = "flex justify-around h-2">
-                  <button onClick = {userlogin} className="hover:bg-gray-300/50 hover:h-5 hover:rounded-xl hover:w-14 active:text-xs">登录</button>
-                  <button onClick = {() =>setUserIn("register")} className="hover:bg-gray-300/50 hover:h-5 hover:rounded-xl hover:w-24 active:text-xs">注册新账号</button>
+                  <button onClick = {userlogin} className="hover:bg-gray-300/50 hover:rounded-xl active:text-xs mt-15 text-xl">登录</button>
+                  <button onClick = {() =>setUserIn("register")} className="hover:bg-gray-300/50  hover:rounded-xl active:text-xs mt-15 text-xl">注册新账号</button>
                 </div>
               </div>
             </div>
           ):(userIn && userIn == "register")? (
             <div className = "fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-              <div className = "relative bg-white rounded-2xl p-6 flex flex-col h-[30vh] w-[40vw] gap-4 shadow-2xl shadow-blue-800">
+              <div className = "relative bg-white rounded-2xl p-6 flex flex-col h-[50vh] w-[40vw] gap-4 shadow-2xl shadow-blue-800">
                 <button className = "absolute top-2 right-2" onClick = {() => setUserIn(null)}>关闭</button>
-                <h1 className = "self-center text-xl">欢迎使用任务管理系统</h1>
+                <h1 className = "self-center text-2xl">欢迎使用任务管理系统</h1>
                 <label>注册账号</label>
-                <input onChange = {(e) => setacUsername(e.target.value)} className = "border rounded-2xl"/>
+                <input onChange = {(e) => setacUsername(e.target.value)} className = "border rounded-2xl p-3"/>
                 <label>新密码</label>
-                <input onChange = {(e) => setPassword(e.target.value)} className = "border rounded-2xl"/>
+                <input onChange = {(e) => setPassword(e.target.value)} className = "border rounded-2xl p-3"/>
                  <div className = "flex justify-around h-2">
-                  <button onClick = {userRegister} className="hover:bg-gray-300/50 hover:h-5 hover:rounded-xl hover:w-14 active:text-xs">注册</button>
-                  <button onClick = {() =>setUserIn("login")} className="hover:bg-gray-300/50 hover:h-5 hover:rounded-xl hover:w-24 active:text-xs">已有账号</button>
+                  <button onClick = {userRegister} className="hover:bg-gray-300/50 hover:rounded-xl active:text-xs mt-15 text-xl">注册</button>
+                  <button onClick = {() =>setUserIn("login")} className="hover:bg-gray-300/50 hover:rounded-xl active:text-xs mt-15 text-xl">已有账号</button>
                 </div>
 
               </div>
@@ -229,7 +237,7 @@ const createdone = async () => {
           ):null
         }
 
-      <div className = "flex justify-center items-start text-2xl pt-10 mb-20 gap-8">
+      <div className = "flex justify-end items-start text-2xl pt-10 mb-20 gap-3 w-[100vw]">
         <Contents onuse = {buttonuse}/>
       {(buttoncontrol == "close") ? (
         <button onClick = {() =>setCreate(true)} className = "bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70">创建</button>
@@ -253,18 +261,17 @@ const createdone = async () => {
 
 
       {fcok == true && (
-        <div className = " flex h-[65vh] justify-start">
+        <div className = " flex h-[65vh] justify-start shadow-xl shadow-blue-300/30  rounded-4xl mx-2 inleft">
           <div className = "relative inset-0">
                 {returnobject.map(({title,subtitle,id},index) => (
-            <div key = {index} className = "w-[10vw] h-[50vh] flex flex-col rounded-2xl p-3 ring-1 ring-white inset-shadow-white inset-shadow-sm shadow-2xl shadow-gray-900/30 bg-gray-700/80 absolute hover:bg-gray-700 hover:top-1 top-10"
+            <div key = {index} className = "w-[10vw] h-[50vh] flex flex-col rounded-2xl p-3 ring-1 ring-white inset-shadow-white inset-shadow-sm shadow-2xl shadow-gray-300/20 bg-gray-600/80 absolute hover:bg-gray-700 hover:top-1 top-10 ml-4 card"
               style={{ left: `${index * 35}px`, zIndex: index}}
               onClick = {()=>{
                 setObid(id);
                 setTitle(title);
                 setSubtitle(subtitle);
                 setObject(true);}}>
-                <h2 className = "text-start text-white">{title}</h2>
-                <p className = "text-xs text-white">{subtitle}</p>
+                <h2 className = "text-center text-white ">{title}</h2>
               </div>
             ))}
         </div>
@@ -321,10 +328,10 @@ const createdone = async () => {
 
 
       {donebutton == true && (
-        <div className = " flex h-[65vh]">
+        <div className = " flex h-[65vh] shadow-xl shadow-blue-300/30 rounded-4xl mx-2">
           <div className = "relative inset-0">
                 {doneobject.map(({title,subtitle,},index) => (
-            <div key = {index} className = "w-[10vw] h-[50vh] flex flex-col rounded-2xl p-3 ring-1 ring-white inset-shadow-white inset-shadow-sm shadow-2xl shadow-gray-900/30 bg-gray-700/80 absolute hover:bg-gray-700 hover:top-1 top-10"
+            <div key = {index} className = "w-[10vw] h-[50vh] flex flex-col rounded-2xl p-3 ring-1 ring-white inset-shadow-white inset-shadow-sm shadow-2xl shadow-gray-900/30 bg-gray-600/80 absolute hover:bg-gray-700 hover:top-1 top-10 ml-4 card"
               style={{ left: `${index * 35}px`, zIndex: index }}>
                 <h2 className = "text-center text-white">{title}</h2>
                 <p className = "text-xs text-white">{subtitle}</p>
@@ -335,10 +342,10 @@ const createdone = async () => {
         )}
 
       {delbutton == true && (
-        <div className = " flex h-[65vh]">
+        <div className = " flex h-[65vh] shadow-xl shadow-blue-300/30  rounded-4xl mx-2">
           <div className = "relative inset-0">
                 {delobject.map(({title,subtitle},index) => (
-            <div key = {index} className = "w-[10vw] h-[50vh] flex flex-col rounded-2xl p-3 ring-1 ring-white inset-shadow-white inset-shadow-sm shadow-2xl shadow-gray-900/30 bg-gray-700/80 absolute hover:bg-gray-700 hover:top-1 top-10"
+            <div key = {index} className = "w-[10vw] h-[50vh] flex flex-col rounded-2xl p-3 ring-1 ring-white inset-shadow-white inset-shadow-sm shadow-2xl shadow-gray-900/30 bg-gray-600/80 absolute hover:bg-gray-700 hover:top-1 top-10 ml-4 card"
               style={{ left: `${index * 35}px`, zIndex: index }}>
                 <h2 className = "text-center text-white">{title}</h2>
                 <p className = "text-xs text-white">{subtitle}</p>
@@ -355,18 +362,19 @@ function Acince ({setU}:connectuserin) {//关闭逻辑
     <div>
       {(setU.control == "open")?(
         <>
-        <button onClick = {() =>  setU.userin("login")} className = "text-xl hover:bg-gray-100/50 pr-1 hover:rounded-xl active:text-3xl font-medium">登入</button>
-        <button onClick = {()=> setU.userin("register")} className = "text-xl hover:bg-gray-100/50 hover:rounded-xl active:text-3xl">注册</button>      
+        <button onClick = {() =>  setU.userin("login")} className = "text-xl hover:bg-gray-100/50 pr-1 hover:rounded-xl active:text-3xl font-medium text-white">login</button>
+        <button onClick = {()=> setU.userin("register")} className = "text-xl hover:bg-gray-100/50 hover:rounded-xl active:text-3xl text-white">register</button>      
         </>
       ):(
         <div className = "flex ">
-      <p className = "text-2xl">{setU.Username}</p>
-      <button className = "hover:bg-gray-100/50 rounded-lg hover:rounded-xl active:text-xs border-1 ml-10 p-2 " onClick = {() => {
+      <p className = "text-2xl text-white">{setU.Username}</p>
+      <button className = "hover:bg-gray-100/50 rounded-lg hover:rounded-xl active:text-xs border-1 ml-10 p-2 text-white" onClick = {() => {
         setU.onClick(false);
         setU.onDone(false);
         setU.onDel(false);
         setU.setcontrol("open");
-        }}>登出</button>
+        setU.onstatus(null);
+        }}>Exit</button>
         </div>
       )}
     </div>
@@ -376,24 +384,31 @@ function Acince ({setU}:connectuserin) {//关闭逻辑
 function Contents ({onuse}:onClick) {
   return(
     <>
-        <button onClick = {()=>{
+        <div onClick = {()=>{
           onuse.onClick(true);
           onuse.onDone(false);
           onuse.onDel(false);
-        }} 
-          className = "bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70">Pending</button>
-        <button onClick = {()=>{
+          onuse.onchangestatus("pending");
+        }}><button className = {`bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70 ${onuse.onstatus == "pending" ? "pend status" : "pend"}`}>Pending</button>
+      </div>
+       
+
+        <div onClick = {()=>{
           onuse.onClick(false);
           onuse.onDone(true);
-          onuse.onDel(false)
-        }} 
-          className = "bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70">已完成</button>
-        <button onClick = {()=>{
+          onuse.onDel(false);
+          onuse.onchangestatus("done");
+        }}><button className = {`bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70 ${onuse.onstatus == "done" ? "done status" : "done"}`}>done</button> 
+          </div>
+
+
+        <div onClick = {()=>{
           onuse.onClick(false);
-          onuse.onDone(false);
-          onuse.onDel(true);
-        }}
-           className = "bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70">记录</button>  
+          onuse.onDone(true);
+          onuse.onDel(false);
+          onuse.onchangestatus("check");
+        }}><button className = {`bg-gray-600/100 hover:bg-gray-500/100 hover:shadow-white text-white p-5 rounded-2xl inset-shadow-white inset-shadow-sm ring-2 shadow-xl shadow-gray-900/70 ${onuse.onstatus == "check" ? "check status" : "check"}`}>Record</button> 
+          </div>
     </>
 
   )
